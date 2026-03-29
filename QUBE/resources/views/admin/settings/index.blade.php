@@ -37,6 +37,13 @@
                     </div>
 
                     <div class="col-md-6">
+                        <label class="form-label">Mobile Number</label>
+                        <input type="text" name="mobile" class="form-control @error('mobile') is-invalid @enderror"
+                               value="{{ old('mobile', $settings['mobile']) }}" placeholder="+966 xxx xxx xxxx">
+                        @error('mobile') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="col-md-6">
                         <label class="form-label">WhatsApp Number</label>
                         <input type="text" name="whatsapp" class="form-control @error('whatsapp') is-invalid @enderror"
                                value="{{ old('whatsapp', $settings['whatsapp']) }}" placeholder="+966 xxx xxx xxxx">

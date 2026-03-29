@@ -1,29 +1,30 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useAllProducts, useProductsByCategory } from '@/lib/useApi';
+import { useAllProducts, useCategories } from '@/lib/useApi';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { useState } from 'react';
 
-type Category = 'marble' | 'wood' | 'engineered';
-
 export default function Products() {
-  const { t, dir } = useLanguage();
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+  const { t, dir, language } = useLanguage();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const { data: allProducts } = useAllProducts();
-  const { data: marbleProducts } = useProductsByCategory('marble');
-  const { data: woodProducts } = useProductsByCategory('wood');
-  const { data: engineeredProducts } = useProductsByCategory('engineered');
+  const { data: dynamicCategories } = useCategories('product');
 
-  const categories = [
-    { id: 'marble', label: t('products.marble'), count: marbleProducts?.length || 0 },
-    { id: 'wood', label: t('products.wood'), count: woodProducts?.length || 0 },
-    { id: 'engineered', label: t('products.engineered'), count: engineeredProducts?.length || 0 },
-  ];
+  const categories = dynamicCategories?.map(cat => ({
+    id: cat.name_en,
+    label: language === 'ar' ? cat.name_ar : cat.name_en,
+    count: allProducts?.filter(p => p.category === cat.name_en).length || 0,
+  })) || [];
 
   const displayProducts = selectedCategory
-    ? (selectedCategory === 'marble' ? marbleProducts : selectedCategory === 'wood' ? woodProducts : engineeredProducts)
+    ? allProducts?.filter(p => p.category === selectedCategory)
     : allProducts;
+
+  const getCategoryLabel = (nameEn: string) => {
+    const cat = dynamicCategories?.find((c) => c.name_en === nameEn);
+    return cat ? (language === 'ar' ? cat.name_ar : cat.name_en) : nameEn;
+  };
 
   return (
     <div className="w-full">
@@ -53,7 +54,7 @@ export default function Products() {
             {categories.map((cat) => (
               <Button
                 key={cat.id}
-                onClick={() => setSelectedCategory(cat.id as Category)}
+                onClick={() => setSelectedCategory(cat.id)}
                 variant={selectedCategory === cat.id ? 'default' : 'outline'}
                 className={`font-bold border-2 ${
                   selectedCategory === cat.id
@@ -74,14 +75,15 @@ export default function Products() {
           {displayProducts && displayProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {displayProducts.map((product) => (
-                <div 
+                <Link
                   key={product.id}
-                  className="group border-2 border-foreground overflow-hidden hover:shadow-xl transition-shadow"
+                  href={`/products/${product.id}`}
+                  className="group border-2 border-foreground overflow-hidden hover:shadow-xl hover:border-accent transition-all cursor-pointer block"
                 >
                   <div className="w-full aspect-square bg-muted border-b-2 border-foreground flex items-center justify-center overflow-hidden">
                     {product.imageUrl ? (
-                      <img 
-                        src={product.imageUrl} 
+                      <img
+                        src={product.imageUrl}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
@@ -101,14 +103,14 @@ export default function Products() {
                     </p>
                     <div className="flex items-center justify-between pt-4 border-t-2 border-foreground">
                       <span className="text-xs font-bold text-accent uppercase">
-                        {product.category}
+                        {getCategoryLabel(product.category)}
                       </span>
-                      <button className="text-sm font-bold text-foreground hover:text-accent transition-colors">
-                        View Details →
-                      </button>
+                      <span className="text-sm font-bold text-foreground group-hover:text-accent transition-colors">
+                        {language === 'ar' ? 'عرض التفاصيل ←' : 'View Details →'}
+                      </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           ) : (
@@ -123,17 +125,17 @@ export default function Products() {
       <section className="section-spacing bg-accent text-background border-t-2 border-foreground">
         <div className="container text-center">
           <h2 className="heading-lg mb-6 text-background">
-            Can't find what you're looking for?
+            {t('products.notFoundTitle')}
           </h2>
           <p className="body-lg mb-8 max-w-2xl mx-auto opacity-90">
-            Contact our team for custom solutions tailored to your specific needs.
+            {t('products.notFoundDesc')}
           </p>
           <Link href="/contact">
             <Button 
               size="lg"
               className="bg-background text-accent hover:bg-background/90 font-bold text-lg px-8 py-6"
             >
-              Get in Touch
+              {t('products.getInTouch')}
             </Button>
           </Link>
         </div>

@@ -17,13 +17,22 @@ const apiClient = axios.create({
 
 // ==================== TYPES ====================
 
+export interface Category {
+  id: number;
+  name_en: string;
+  name_ar: string;
+  type: 'product' | 'project';
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Product {
   id: number;
   name: string;
   nameAr: string;
   description: string | null;
   descriptionAr: string | null;
-  category: 'marble' | 'wood' | 'engineered';
+  category: string;
   imageUrl: string | null;
   price: string | null;
   featured: number;
@@ -37,7 +46,7 @@ export interface Project {
   titleAr: string;
   description: string | null;
   descriptionAr: string | null;
-  category: 'residential' | 'commercial';
+  category: string;
   beforeImageUrl: string | null;
   afterImageUrl: string | null;
   images: string[];
@@ -58,6 +67,7 @@ export interface ContactFormData {
 export interface Settings {
   phone1: string;
   phone2: string;
+  mobile: string;
   whatsapp: string;
   email: string;
   address_en: string;
@@ -79,6 +89,13 @@ export interface ApiResponse<T> {
 }
 
 // ==================== API FUNCTIONS ====================
+
+// Categories
+export async function getCategories(type?: 'product' | 'project'): Promise<Category[]> {
+  const params = type ? { type } : {};
+  const { data } = await apiClient.get<ApiResponse<Category[]>>('/categories', { params });
+  return data.data;
+}
 
 // Products
 export async function getAllProducts(): Promise<Product[]> {

@@ -64,8 +64,11 @@
                     <div class="col-md-6">
                         <label class="form-label">Category <span class="text-danger">*</span></label>
                         <select name="category" class="form-select @error('category') is-invalid @enderror" required>
-                            <option value="residential" {{ old('category', $project->category) == 'residential' ? 'selected' : '' }}>Residential</option>
-                            <option value="commercial" {{ old('category', $project->category) == 'commercial' ? 'selected' : '' }}>Commercial</option>
+                            @foreach($categories as $cat)
+                                <option value="{{ $cat->name_en }}" {{ old('category', $project->category) == $cat->name_en ? 'selected' : '' }}>
+                                    {{ $cat->name_en }} ({{ $cat->name_ar }})
+                                </option>
+                            @endforeach
                         </select>
                         @error('category') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>

@@ -667,6 +667,13 @@
             </div>
 
             <div class="nav-item">
+                <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                    <i class="bi bi-tags-fill"></i>
+                    <span>Categories</span>
+                </a>
+            </div>
+
+            <div class="nav-item">
                 <a href="{{ route('admin.messages.index') }}" class="nav-link {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">
                     <i class="bi bi-envelope-fill"></i>
                     <span>Messages</span>

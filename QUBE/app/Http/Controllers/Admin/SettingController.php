@@ -13,6 +13,7 @@ class SettingController extends Controller
         $settings = [
             'phone1' => Setting::get('phone1', ''),
             'phone2' => Setting::get('phone2', ''),
+            'mobile' => Setting::get('mobile', ''),
             'whatsapp' => Setting::get('whatsapp', ''),
             'email' => Setting::get('email', ''),
             'address_en' => Setting::get('address_en', ''),
@@ -27,6 +28,7 @@ class SettingController extends Controller
         $validated = $request->validate([
             'phone1' => 'nullable|string|max:20',
             'phone2' => 'nullable|string|max:20',
+            'mobile' => 'nullable|string|max:20',
             'whatsapp' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
             'address_en' => 'nullable|string|max:500',

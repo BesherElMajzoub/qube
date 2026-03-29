@@ -1,5 +1,5 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react';
 export default function Header() {
   const { language, setLanguage, t, dir } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [location] = useLocation();
 
   const navItems = [
     { key: 'nav.home', href: '/' },
@@ -21,20 +22,23 @@ export default function Header() {
       <div className="container flex items-center justify-between h-20">
         {/* Logo */}
         <Link href="/">
-          <a className="text-3xl font-black tracking-tighter text-foreground hover:opacity-80 transition-opacity">
+          <a className="text-3xl font-black tracking-tighter text-secondary hover:opacity-80 transition-opacity">
             QUBE
           </a>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <Link key={item.key} href={item.href}>
-              <a className="text-sm font-semibold text-foreground hover:text-accent transition-colors border-b-2 border-transparent hover:border-accent pb-1">
-                {t(item.key)}
-              </a>
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = location === item.href || (item.href !== '/' && location.startsWith(item.href));
+            return (
+              <Link key={item.key} href={item.href}>
+                <a className={`text-sm font-semibold transition-colors border-b-2 pb-1 ${isActive ? 'text-primary border-primary' : 'text-foreground border-transparent hover:text-primary hover:border-primary'}`}>
+                  {t(item.key)}
+                </a>
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Language Switcher & Mobile Menu Button */}
@@ -76,7 +80,7 @@ export default function Header() {
             {navItems.map((item) => (
               <Link key={item.key} href={item.href}>
                 <a
-                  className="text-sm font-semibold text-foreground hover:text-accent transition-colors block py-2"
+                  className={`text-sm font-semibold block py-2 transition-colors ${location === item.href || (item.href !== '/' && location.startsWith(item.href)) ? 'text-primary' : 'text-foreground hover:text-primary'}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {t(item.key)}

@@ -1,30 +1,42 @@
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useFeaturedProducts, useFeaturedProjects } from '@/lib/useApi';
+import { useFeaturedProducts, useFeaturedProjects, useCategories } from '@/lib/useApi';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { ArrowRight, Package, Hammer, Palette } from 'lucide-react';
 
 export default function Home() {
-  const { t, dir } = useLanguage();
+  const { t, dir, language } = useLanguage();
   const { data: featuredProducts } = useFeaturedProducts();
   const { data: featuredProjects } = useFeaturedProjects();
+  const { data: productCategories } = useCategories('product');
+  const { data: projectCategories } = useCategories('project');
+
+  const getProductCategoryLabel = (nameEn: string) => {
+    const cat = productCategories?.find((c) => c.name_en === nameEn);
+    return cat ? (language === 'ar' ? cat.name_ar : cat.name_en) : nameEn;
+  };
+
+  const getProjectCategoryLabel = (nameEn: string) => {
+    const cat = projectCategories?.find((c) => c.name_en === nameEn);
+    return cat ? (language === 'ar' ? cat.name_ar : cat.name_en) : nameEn;
+  };
 
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative w-full h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center overflow-hidden">
+      <section className="relative w-full h-screen bg-gradient-to-br from-secondary/10 to-primary/10 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 border-2 border-foreground opacity-10"></div>
         
         {/* Geometric background elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent opacity-5 transform rotate-45"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent opacity-5 transform -rotate-45"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary opacity-5 transform rotate-45"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary opacity-5 transform -rotate-45"></div>
 
         <div className="container relative z-10 text-center">
           <div className="mb-8 animate-fade-in">
-            <h1 className="heading-xl mb-4 text-foreground">
+            <h1 className="heading-xl mb-4 text-secondary">
               {t('hero.title')}
             </h1>
-            <div className="w-20 h-1 bg-accent mx-auto mb-8"></div>
+            <div className="w-20 h-1 bg-primary mx-auto mb-8"></div>
             <p className="text-3xl sm:text-4xl font-bold text-foreground mb-6">
               {t('hero.subtitle')}
             </p>
@@ -37,7 +49,7 @@ export default function Home() {
             <Link href="/products">
               <Button 
                 size="lg" 
-                className="bg-accent text-background hover:bg-accent/90 font-bold text-lg px-8 py-6 flex items-center gap-2"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-lg px-8 py-6 flex items-center gap-2"
               >
                 {t('hero.exploreBtn')}
                 <ArrowRight size={20} />
@@ -69,7 +81,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
               <div className="w-full aspect-square bg-muted border-2 border-foreground flex items-center justify-center">
-                <span className="text-muted-foreground text-lg">[Featured Image]</span>
+                 <img
+                  src="public\img\Gemini_Generated_Image_556hhn556hhn556h.png"
+                  alt="QUBE showroom - premium surfaces"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
             </div>
             <div className="order-1 md:order-2">
@@ -165,7 +181,7 @@ export default function Home() {
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-accent uppercase">
-                      {product.category}
+                      {getProductCategoryLabel(product.category)}
                     </span>
                     {product.price && (
                       <span className="font-bold text-foreground">${product.price}</span>
@@ -219,7 +235,7 @@ export default function Home() {
                     <h3 className="heading-md text-background mb-2">{project.title}</h3>
                     <p className="text-sm text-background/80 mb-4">{project.description}</p>
                     <span className="inline-block px-4 py-2 bg-accent text-background font-bold text-xs uppercase">
-                      {project.category}
+                      {getProjectCategoryLabel(project.category)}
                     </span>
                   </div>
                 </div>
@@ -236,7 +252,7 @@ export default function Home() {
             {t('hero.subtitle')}
           </h2>
           <p className="body-lg mb-12 max-w-2xl mx-auto opacity-90">
-            Transform your space with QUBE's premium decorative materials and surface solutions.
+            {t('hero.ctaDesc')}
           </p>
           <Link href="/contact">
             <Button 

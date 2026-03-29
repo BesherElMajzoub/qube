@@ -9,9 +9,12 @@ import {
   getAllProducts,
   getFeaturedProducts,
   getProductsByCategory,
+  getProduct,
   getAllProjects,
   getFeaturedProjects,
   getProjectsByCategory,
+  getProject,
+  getCategories,
   submitContactForm,
   getSettings,
   getAbout,
@@ -19,6 +22,15 @@ import {
   trackClick,
   type ContactFormData,
 } from './api';
+
+// ==================== CATEGORIES ====================
+
+export function useCategories(type?: 'product' | 'project') {
+  return useQuery({
+    queryKey: ['categories', type],
+    queryFn: () => getCategories(type),
+  });
+}
 
 // ==================== PRODUCTS ====================
 
@@ -36,10 +48,18 @@ export function useFeaturedProducts() {
   });
 }
 
-export function useProductsByCategory(category: 'marble' | 'wood' | 'engineered') {
+export function useProductsByCategory(category: string) {
   return useQuery({
     queryKey: ['products', 'byCategory', category],
     queryFn: () => getProductsByCategory(category),
+  });
+}
+
+export function useProduct(id: number) {
+  return useQuery({
+    queryKey: ['products', id],
+    queryFn: () => getProduct(id),
+    enabled: !!id,
   });
 }
 
@@ -59,10 +79,18 @@ export function useFeaturedProjects() {
   });
 }
 
-export function useProjectsByCategory(category: 'residential' | 'commercial') {
+export function useProjectsByCategory(category: string) {
   return useQuery({
     queryKey: ['projects', 'byCategory', category],
     queryFn: () => getProjectsByCategory(category),
+  });
+}
+
+export function useProject(id: number) {
+  return useQuery({
+    queryKey: ['projects', id],
+    queryFn: () => getProject(id),
+    enabled: !!id,
   });
 }
 

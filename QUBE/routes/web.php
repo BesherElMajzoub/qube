@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\AboutController;
@@ -33,6 +34,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Projects CRUD
     Route::resource('projects', ProjectController::class)->except(['show']);
+
+    // Categories CRUD
+    Route::resource('categories', CategoryController::class)->except(['create', 'show', 'edit']);
 
     // Messages
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');

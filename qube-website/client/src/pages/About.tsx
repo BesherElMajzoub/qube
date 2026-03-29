@@ -1,18 +1,29 @@
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Lightbulb, Target, Heart, Zap } from 'lucide-react';
+import { useAbout } from '@/lib/useApi';
 
 export default function About() {
-  const { t, dir } = useLanguage();
+  const { t, dir, language } = useLanguage();
+  const { data: about } = useAbout();
 
   const values = [
-    { icon: Lightbulb, titleKey: 'Innovation', descKey: 'We embrace cutting-edge design and materials' },
-    { icon: Target, titleKey: 'Excellence', descKey: 'Precision and quality in every project' },
-    { icon: Heart, titleKey: 'Passion', descKey: 'Dedicated to transforming spaces beautifully' },
-    { icon: Zap, titleKey: 'Efficiency', descKey: 'Timely delivery and professional service' },
+    { icon: Lightbulb, titleKey: 'about.innovation' as const, descKey: 'about.innovationDesc' as const },
+    { icon: Target, titleKey: 'about.excellence' as const, descKey: 'about.excellenceDesc' as const },
+    { icon: Heart, titleKey: 'about.passion' as const, descKey: 'about.passionDesc' as const },
+    { icon: Zap, titleKey: 'about.efficiency' as const, descKey: 'about.efficiencyDesc' as const },
+  ];
+
+  const whyItems = [
+    { titleKey: 'about.premiumQuality' as const, descKey: 'about.premiumQualityDesc' as const },
+    { titleKey: 'about.expertDesign' as const, descKey: 'about.expertDesignDesc' as const },
+    { titleKey: 'about.professionalInstall' as const, descKey: 'about.professionalInstallDesc' as const },
+    { titleKey: 'about.sustainable' as const, descKey: 'about.sustainableDesc' as const },
+    { titleKey: 'about.support' as const, descKey: 'about.supportDesc' as const },
+    { titleKey: 'about.trackRecord' as const, descKey: 'about.trackRecordDesc' as const },
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full" dir={dir}>
       {/* Page Hero */}
       <section className="relative py-20 sm:py-28 bg-foreground text-background border-b-2 border-foreground">
         <div className="container">
@@ -21,21 +32,37 @@ export default function About() {
         </div>
       </section>
 
-      {/* Company Story */}
+      {/* Company Story with image */}
       <section className="section-spacing bg-background border-b-2 border-foreground">
         <div className="container">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="heading-lg text-foreground mb-8">Our Story</h2>
-            <div className="space-y-6 body-lg text-foreground leading-relaxed">
-              <p>
-                QUBE was founded with a simple yet powerful vision: to revolutionize how people experience their living and working spaces through premium decorative materials and innovative surface solutions.
-              </p>
-              <p>
-                With over a decade of expertise in the design and construction industry, our team brings together architects, designers, and craftspeople who share an unwavering commitment to excellence and innovation.
-              </p>
-              <p>
-                Today, QUBE stands as a trusted partner for discerning clients who refuse to compromise on quality, aesthetics, or functionality. From residential interiors to commercial installations, we deliver surfaces that don't just look beautiful—they transform spaces into extraordinary environments.
-              </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Story text */}
+            <div className={language === 'ar' ? 'order-2' : 'order-1'}>
+              <h2 className="heading-lg text-foreground mb-8">{t('about.ourStory')}</h2>
+              <div className="space-y-6 body-lg text-foreground leading-relaxed">
+                {about ? (
+                  <>
+                    <p>{language === 'ar' ? about.description_ar : about.description_en}</p>
+                  </>
+                ) : (
+                  <>
+                    <p>{t('about.storyP1')}</p>
+                    <p>{t('about.storyP2')}</p>
+                    <p>{t('about.storyP3')}</p>
+                  </>
+                )}
+              </div>
+            </div>
+            {/* Image */}
+            <div className={language === 'ar' ? 'order-1' : 'order-2'}>
+              <div className="relative w-full aspect-[4/3] border-2 border-foreground overflow-hidden group">
+                <img
+                  src="public\img\Gemini_Generated_Image_556hhn556hhn556h.png"
+                  alt="QUBE showroom - premium surfaces"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-foreground/10 group-hover:bg-foreground/0 transition-colors duration-300" />
+              </div>
             </div>
           </div>
         </div>
@@ -67,19 +94,19 @@ export default function About() {
       {/* Core Values */}
       <section className="section-spacing bg-background border-b-2 border-foreground">
         <div className="container">
-          <h2 className="heading-lg text-foreground text-center mb-12">Our Core Values</h2>
-          
+          <h2 className="heading-lg text-foreground text-center mb-12">{t('about.coreValues')}</h2>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, idx) => {
               const Icon = value.icon;
               return (
-                <div 
+                <div
                   key={idx}
                   className="p-6 border-2 border-foreground text-center hover:bg-accent hover:text-background transition-colors group"
                 >
                   <Icon size={40} className="mx-auto mb-4 text-accent group-hover:text-background transition-colors" />
-                  <h3 className="heading-sm text-foreground group-hover:text-background mb-3 transition-colors">{value.titleKey}</h3>
-                  <p className="text-sm text-foreground group-hover:text-background opacity-80 transition-colors">{value.descKey}</p>
+                  <h3 className="heading-sm text-foreground group-hover:text-background mb-3 transition-colors">{t(value.titleKey)}</h3>
+                  <p className="text-sm text-foreground group-hover:text-background opacity-80 transition-colors">{t(value.descKey)}</p>
                 </div>
               );
             })}
@@ -87,55 +114,19 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Why Choose Us */}
       <section className="section-spacing bg-muted border-b-2 border-foreground">
         <div className="container">
-          <h2 className="heading-lg text-foreground text-center mb-12">Meet Our Team</h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { name: 'Sarah Al-Rashid', role: 'Founder & Creative Director' },
-              { name: 'Ahmed Al-Dosari', role: 'Head of Design' },
-              { name: 'Fatima Al-Otaibi', role: 'Project Manager' },
-              { name: 'Mohammed Al-Saud', role: 'Technical Lead' },
-            ].map((member, idx) => (
-              <div 
-                key={idx}
-                className="border-2 border-foreground overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <div className="w-full aspect-square bg-foreground flex items-center justify-center">
-                  <span className="text-background text-sm">[Team Photo]</span>
-                </div>
-                <div className="p-6 bg-background">
-                  <h3 className="heading-sm text-foreground mb-2">{member.name}</h3>
-                  <p className="text-sm text-muted-foreground">{member.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          <h2 className="heading-lg text-foreground text-center mb-12">{t('about.whyChoose')}</h2>
 
-      {/* Why Choose Us */}
-      <section className="section-spacing bg-background border-b-2 border-foreground">
-        <div className="container">
-          <h2 className="heading-lg text-foreground text-center mb-12">Why Choose QUBE?</h2>
-          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { title: 'Premium Quality', desc: 'We source only the finest materials from trusted suppliers worldwide' },
-              { title: 'Expert Design', desc: 'Our team of experienced designers creates bespoke solutions for every project' },
-              { title: 'Professional Installation', desc: 'Meticulous attention to detail ensures flawless execution' },
-              { title: 'Sustainable Practices', desc: 'We prioritize eco-friendly materials and processes' },
-              { title: 'Customer Support', desc: 'Dedicated support throughout your project journey' },
-              { title: 'Proven Track Record', desc: 'Hundreds of successful projects across residential and commercial sectors' },
-            ].map((item, idx) => (
-              <div 
+            {whyItems.map((item, idx) => (
+              <div
                 key={idx}
-                className="p-6 border-2 border-foreground bg-muted"
+                className="p-6 border-2 border-foreground bg-background hover:border-accent transition-colors"
               >
-                <h3 className="heading-sm text-foreground mb-3">{item.title}</h3>
-                <p className="text-sm text-foreground opacity-80">{item.desc}</p>
+                <h3 className="heading-sm text-foreground mb-3">{t(item.titleKey)}</h3>
+                <p className="text-sm text-foreground opacity-80">{t(item.descKey)}</p>
               </div>
             ))}
           </div>

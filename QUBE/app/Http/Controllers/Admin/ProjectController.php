@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectImage;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +24,8 @@ class ProjectController extends Controller
 
     public function create()
     {
-        return view('admin.projects.create');
+        $categories = Category::where('type', 'project')->get();
+        return view('admin.projects.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -33,7 +35,7 @@ class ProjectController extends Controller
             'title_ar' => 'required|string|max:255',
             'description_en' => 'nullable|string',
             'description_ar' => 'nullable|string',
-            'category' => 'required|in:residential,commercial',
+            'category' => 'required|string|max:255',
             'featured' => 'nullable|boolean',
             'case_study_en' => 'nullable|string',
             'case_study_ar' => 'nullable|string',
@@ -64,7 +66,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $project->load('images');
-        return view('admin.projects.edit', compact('project'));
+        $categories = Category::where('type', 'project')->get();
+        return view('admin.projects.edit', compact('project', 'categories'));
     }
 
     public function update(Request $request, Project $project)
@@ -74,7 +77,7 @@ class ProjectController extends Controller
             'title_ar' => 'required|string|max:255',
             'description_en' => 'nullable|string',
             'description_ar' => 'nullable|string',
-            'category' => 'required|in:residential,commercial',
+            'category' => 'required|string|max:255',
             'featured' => 'nullable|boolean',
             'case_study_en' => 'nullable|string',
             'case_study_ar' => 'nullable|string',
