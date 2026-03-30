@@ -18,12 +18,19 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background border-b-2 border-foreground">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-sm border-b-2 border-foreground shadow-sm">
       <div className="container flex items-center justify-between h-20">
         {/* Logo */}
         <Link href="/">
-          <a className="text-3xl font-black tracking-tighter text-secondary hover:opacity-80 transition-opacity">
-            QUBE
+          <a className="flex items-center gap-3 hover:opacity-90 transition-opacity group" aria-label="QUBE Home">
+            <img
+              src="/img/LOGO (7).svg"
+              alt="QUBE Logo"
+              className="h-14 w-14 object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+            <span className="text-2xl font-black tracking-tighter text-secondary">
+              QUBE
+            </span>
           </a>
         </Link>
 

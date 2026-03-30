@@ -18,7 +18,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12 pb-12 border-b-2 border-background">
           {/* Company Info */}
           <div>
-            <h3 className="text-2xl font-black mb-4">QUBE</h3>
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src="/img/LOGO (7).svg"
+                alt="QUBE Logo"
+                className="h-10 w-10 object-contain brightness-0 invert"
+              />
+              <span className="text-2xl font-black tracking-tighter">QUBE</span>
+            </div>
+            <div
+              className="w-12 h-0.5 mb-4 rounded-full"
+              style={{ background: 'linear-gradient(90deg, #149b9e, #6e408d)' }}
+            />
             <p className="text-sm opacity-80 leading-relaxed">
               {t('footer.company')}
             </p>

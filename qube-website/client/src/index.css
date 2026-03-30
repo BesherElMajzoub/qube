@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -45,26 +45,26 @@
 }
 
 :root {
-  --primary-purple: #6F418C;
-  --accent-teal: #219B9C;
-  --bg-color: #F7F7F7;
-  --text-primary: #1E1E1E;
+  --primary-purple: #6f418c;
+  --accent-teal: #219b9c;
+  --bg-color: #f7f7f7;
+  --text-primary: #1e1e1e;
   --text-secondary: #666666;
 
   --background: var(--bg-color);
   --foreground: var(--text-primary);
   --primary: var(--accent-teal);
-  --primary-foreground: #FFFFFF;
+  --primary-foreground: #ffffff;
   --secondary: var(--primary-purple);
-  --secondary-foreground: #FFFFFF;
-  --muted: #EAEAEE;
+  --secondary-foreground: #ffffff;
+  --muted: #eaeaee;
   --muted-foreground: var(--text-secondary);
   --accent: var(--accent-teal);
-  --accent-foreground: #FFFFFF;
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --border: #D1D5DB;
-  --input: #D1D5DB;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #d1d5db;
+  --input: #d1d5db;
   --ring: var(--accent-teal);
   --radius: 0.5rem;
   --card: var(--bg-color);
@@ -74,75 +74,80 @@
   --sidebar: var(--bg-color);
   --sidebar-foreground: var(--text-primary);
   --sidebar-accent: var(--accent-teal);
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #D1D5DB;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #d1d5db;
   --sidebar-ring: var(--accent-teal);
   --sidebar-primary: var(--accent-teal);
-  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-primary-foreground: #ffffff;
   --chart-1: var(--accent-teal);
   --chart-2: var(--primary-purple);
   --chart-3: var(--text-secondary);
-  --chart-4: #F59E0B;
-  --chart-5: #3B82F6;
+  --chart-4: #f59e0b;
+  --chart-5: #3b82f6;
 }
 
 .dark {
-  --primary-purple: #8B5BAA;
-  --accent-teal: #2DD4BF;
+  --primary-purple: #8b5baa;
+  --accent-teal: #2dd4bf;
   --bg-color: #121212;
-  --text-primary: #F3F4F6;
-  --text-secondary: #9CA3AF;
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
 
   --background: var(--bg-color);
   --foreground: var(--text-primary);
   --primary: var(--accent-teal);
-  --primary-foreground: #1E1E1E;
+  --primary-foreground: #1e1e1e;
   --secondary: var(--primary-purple);
-  --secondary-foreground: #FFFFFF;
-  --muted: #27272A;
+  --secondary-foreground: #ffffff;
+  --muted: #27272a;
   --muted-foreground: var(--text-secondary);
   --accent: var(--accent-teal);
-  --accent-foreground: #1E1E1E;
-  --destructive: #EF4444;
-  --destructive-foreground: #FFFFFF;
-  --border: #3F3F46;
-  --input: #3F3F46;
+  --accent-foreground: #1e1e1e;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #3f3f46;
+  --input: #3f3f46;
   --ring: var(--accent-teal);
   --radius: 0.5rem;
-  --card: #1E1E1E;
+  --card: #1e1e1e;
   --card-foreground: var(--text-primary);
-  --popover: #1E1E1E;
+  --popover: #1e1e1e;
   --popover-foreground: var(--text-primary);
-  --sidebar: #1E1E1E;
+  --sidebar: #1e1e1e;
   --sidebar-foreground: var(--text-primary);
   --sidebar-accent: var(--accent-teal);
-  --sidebar-accent-foreground: #1E1E1E;
-  --sidebar-border: #3F3F46;
+  --sidebar-accent-foreground: #1e1e1e;
+  --sidebar-border: #3f3f46;
   --sidebar-ring: var(--accent-teal);
   --sidebar-primary: var(--accent-teal);
-  --sidebar-primary-foreground: #1E1E1E;
+  --sidebar-primary-foreground: #1e1e1e;
   --chart-1: var(--accent-teal);
   --chart-2: var(--primary-purple);
   --chart-3: var(--text-secondary);
-  --chart-4: #F59E0B;
-  --chart-5: #3B82F6;
+  --chart-4: #f59e0b;
+  --chart-5: #3b82f6;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   html[dir="rtl"] {
     direction: rtl;
+    scroll-behavior: smooth;
   }
   html[dir="ltr"] {
     direction: ltr;
+    scroll-behavior: smooth;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -224,5 +229,122 @@
       padding-right: 2rem;
       max-width: 1280px;
     }
+  }
+
+  /* ============================
+     Hero Animations
+     ============================ */
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes floatY {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+
+  @keyframes floatYSlow {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(45deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(45deg);
+    }
+  }
+
+  @keyframes rotateSlow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes scrollBounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+
+  /* Animation utility classes */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease both;
+  }
+  .animate-float {
+    animation: floatY 6s ease-in-out infinite;
+  }
+  .animate-float-slow {
+    animation: floatYSlow 9s ease-in-out infinite;
+  }
+  .animate-rotate-slow {
+    animation: rotateSlow 24s linear infinite;
+  }
+  .animate-scroll-bounce {
+    animation: scrollBounce 1.8s ease-in-out infinite;
+  }
+
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+  .delay-600 {
+    animation-delay: 0.6s;
+  }
+  .delay-700 {
+    animation-delay: 0.7s;
+  }
+  .delay-800 {
+    animation-delay: 0.8s;
   }
 }
