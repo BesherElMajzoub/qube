@@ -158,5 +158,7 @@ class DatabaseSeeder extends Seeder
                 'description_ar' => 'كيوب هي شركة رائدة متخصصة في المواد الديكورية وحلول الأسطح. نقدم أسطح رخام وخشب وأسطح هندسية فاخرة للمشاريع السكنية والتجارية.',
             ]
         );
+
+        $this->call(FaqSeeder::class);
     }
 }

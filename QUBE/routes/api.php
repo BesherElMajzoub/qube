@@ -24,6 +24,9 @@ Route::get('/projects/{project}', [ProjectController::class, 'show']);
 // Categories
 Route::get('/categories', [\App\Http\Controllers\Api\CategoryController::class, 'index']);
 
+// FAQs
+Route::get('/faqs', [\App\Http\Controllers\Api\FaqController::class, 'index']);
+
 // Contact
 Route::post('/contact', [ContactController::class, 'store']);
 

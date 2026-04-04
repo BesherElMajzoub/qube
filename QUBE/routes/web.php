@@ -38,6 +38,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Categories CRUD
     Route::resource('categories', CategoryController::class)->except(['create', 'show', 'edit']);
 
+    // FAQs CRUD
+    Route::resource('faqs', \App\Http\Controllers\Admin\FaqController::class)->except(['show']);
+
     // Messages
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
     Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
