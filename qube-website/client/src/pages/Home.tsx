@@ -6,7 +6,20 @@ import {
 } from "@/lib/useApi";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { ArrowRight, Package, Hammer, Palette } from "lucide-react";
+import {
+  ArrowRight,
+  Package,
+  Hammer,
+  Palette,
+  ChefHat,
+  Bath,
+  Building2,
+  Droplets,
+  Star,
+  Minus,
+  Settings,
+  Clock,
+} from "lucide-react";
 
 export default function Home() {
   const { t, dir, language } = useLanguage();
@@ -24,6 +37,14 @@ export default function Home() {
     const cat = projectCategories?.find(c => c.name_en === nameEn);
     return cat ? (language === "ar" ? cat.name_ar : cat.name_en) : nameEn;
   };
+
+  const features = [
+    { icon: Minus, text: t("hero.feature1"), color: "#149b9e" },
+    { icon: Droplets, text: t("hero.feature2"), color: "#6e408d" },
+    { icon: Star, text: t("hero.feature3"), color: "#72bf44" },
+    { icon: Settings, text: t("hero.feature4"), color: "#149b9e" },
+    { icon: Clock, text: t("hero.feature5"), color: "#6e408d" },
+  ];
 
   return (
     <div className="w-full">
@@ -86,30 +107,38 @@ export default function Home() {
         <div className="container relative z-10 flex flex-col lg:flex-row items-center gap-16 pt-16 pb-24">
           {/* Left: Text Content */}
           <div className="flex-1 text-center lg:text-start">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 rounded-full mb-6 animate-fade-in-up delay-100">
+              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+              <span className="text-sm font-bold text-accent">
+                {t("hero.exclusiveBadge")}
+              </span>
+            </div>
+
             {/* Heading */}
-            <h1 className="heading-xl mb-6 animate-fade-in-up delay-100">
+            <h1 className="heading-xl mb-6 animate-fade-in-up delay-200">
               {t("hero.title")}
             </h1>
 
             {/* Accent line */}
             <div
-              className="w-20 h-1.5 mb-8 rounded-full animate-fade-in-up delay-200 mx-auto lg:mx-0"
+              className="w-20 h-1.5 mb-8 rounded-full animate-fade-in-up delay-300 mx-auto lg:mx-0"
               style={{ background: "linear-gradient(90deg, #149b9e, #6e408d)" }}
             />
 
             {/* Subtitle */}
-            <p className="text-2xl sm:text-3xl font-bold text-foreground mb-5 animate-fade-in-up delay-300">
+            <p className="text-2xl sm:text-3xl font-bold text-foreground mb-5 animate-fade-in-up delay-400">
               {t("hero.subtitle")}
             </p>
 
             {/* Description */}
-            <p className="text-lg text-foreground/70 mb-12 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fade-in-up delay-400">
+            <p className="text-lg text-foreground/70 mb-12 max-w-lg mx-auto lg:mx-0 leading-relaxed animate-fade-in-up delay-500">
               {t("hero.description")}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up delay-500">
-              <Link href="/products">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up delay-600">
+              <Link href="/projects">
                 <Button
                   size="lg"
                   className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-base px-8 py-6 flex items-center gap-2 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
@@ -130,19 +159,19 @@ export default function Home() {
             </div>
 
             {/* Stats Row */}
-            <div className="flex items-center gap-10 mt-14 justify-center lg:justify-start animate-fade-in-up delay-600">
+            <div className="flex items-center gap-10 mt-14 justify-center lg:justify-start animate-fade-in-up delay-700">
               {[
                 {
+                  number: "20+",
+                  label: t("hero.yearsLabel"),
+                },
+                {
                   number: "500+",
-                  label: language === "ar" ? "منتج" : "Products",
+                  label: t("hero.projectsLabel"),
                 },
                 {
-                  number: "200+",
-                  label: language === "ar" ? "مشروع" : "Projects",
-                },
-                {
-                  number: "10+",
-                  label: language === "ar" ? "سنوات خبرة" : "Years",
+                  number: "100%",
+                  label: t("hero.warrantyLabel"),
                 },
               ].map((stat, i) => (
                 <div key={i} className="text-center lg:text-start">
@@ -213,8 +242,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Why Choose QUBE — Feature Bullets */}
+      <section className="py-12 bg-background border-t-2 border-b-2 border-foreground overflow-hidden">
+        <div className="container">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+            {features.map((feature, idx) => {
+              const Icon = feature.icon;
+              return (
+                <div key={idx} className="flex items-center gap-2.5">
+                  <Icon size={20} style={{ color: feature.color }} />
+                  <span className="text-sm font-bold text-foreground whitespace-nowrap">
+                    {feature.text}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* About Preview Section */}
-      <section className="section-spacing bg-background border-t-2 border-b-2 border-foreground">
+      <section className="section-spacing bg-background border-b-2 border-foreground">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1">
@@ -250,7 +298,7 @@ export default function Home() {
               </p>
               <Link href="/about">
                 <Button className="bg-foreground text-background hover:bg-foreground/90 font-bold flex items-center gap-2">
-                  Learn More
+                  {t("about.learnMore")}
                   <ArrowRight size={18} />
                 </Button>
               </Link>
@@ -259,11 +307,71 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Solutions Quick Links — Kitchens / Bathrooms / Commercial */}
+      <section className="section-spacing bg-muted border-b-2 border-foreground">
+        <div className="container">
+          <h2 className="heading-lg text-center mb-4">{t("services.title")}</h2>
+          <div className="w-16 h-1 bg-accent mx-auto mb-12" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: ChefHat,
+                title: t("nav.kitchens"),
+                desc: t("kitchens.description"),
+                href: "/kitchens",
+                color: "#149b9e",
+              },
+              {
+                icon: Bath,
+                title: t("nav.bathrooms"),
+                desc: t("bathrooms.description"),
+                href: "/bathrooms",
+                color: "#6e408d",
+              },
+              {
+                icon: Building2,
+                title: t("nav.commercial"),
+                desc: t("commercial.description"),
+                href: "/commercial",
+                color: "#72bf44",
+              },
+            ].map((solution, idx) => {
+              const Icon = solution.icon;
+              return (
+                <Link key={idx} href={solution.href}>
+                  <div className="p-8 border-2 border-foreground bg-background hover:shadow-xl transition-all duration-300 group cursor-pointer h-full relative overflow-hidden">
+                    <div
+                      className="absolute top-0 left-0 w-full h-1 transition-all duration-300 group-hover:h-1.5"
+                      style={{ background: solution.color }}
+                    />
+                    <Icon
+                      size={40}
+                      className="mb-6 transition-colors"
+                      style={{ color: solution.color }}
+                    />
+                    <h3 className="heading-sm mb-4 text-foreground group-hover:text-accent transition-colors">
+                      {solution.title}
+                    </h3>
+                    <p className="body-base text-foreground opacity-80 mb-6 line-clamp-3">
+                      {solution.desc}
+                    </p>
+                    <span className="inline-flex items-center gap-1 text-sm font-bold text-accent">
+                      {t("about.learnMore")}
+                      <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
       <section className="section-spacing bg-foreground text-background border-b-2 border-foreground">
         <div className="container">
           <h2 className="heading-lg text-center mb-12 text-background">
-            {t("services.title")}
+            {t("hiMacs.title")}
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -322,7 +430,7 @@ export default function Home() {
                 variant="outline"
                 className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background font-bold flex items-center gap-2"
               >
-                View All
+                {t("products.viewAll")}
                 <ArrowRight size={18} />
               </Button>
             </Link>
@@ -338,7 +446,7 @@ export default function Home() {
                   {product.imageUrl ? (
                     <img
                       src={product.imageUrl}
-                      alt={product.name}
+                      alt={language === "ar" ? product.nameAr : product.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   ) : (
@@ -349,10 +457,10 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="heading-sm text-foreground mb-2">
-                    {product.name}
+                    {language === "ar" ? product.nameAr : product.name}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                    {product.description}
+                    {language === "ar" ? product.descriptionAr : product.description}
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold text-accent uppercase">
@@ -386,7 +494,7 @@ export default function Home() {
                 variant="outline"
                 className="border-2 border-foreground text-foreground hover:bg-foreground hover:text-background font-bold flex items-center gap-2"
               >
-                View All
+                {t("projects.viewAll")}
                 <ArrowRight size={18} />
               </Button>
             </Link>
@@ -402,7 +510,7 @@ export default function Home() {
                   {project.afterImageUrl ? (
                     <img
                       src={project.afterImageUrl}
-                      alt={project.title}
+                      alt={language === "ar" ? project.titleAr : project.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
                   ) : (
@@ -414,10 +522,10 @@ export default function Home() {
                 <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/80 transition-colors duration-300 flex items-center justify-center">
                   <div className="text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <h3 className="heading-md text-background mb-2">
-                      {project.title}
+                      {language === "ar" ? project.titleAr : project.title}
                     </h3>
                     <p className="text-sm text-background/80 mb-4">
-                      {project.description}
+                      {language === "ar" ? project.descriptionAr : project.description}
                     </p>
                     <span className="inline-block px-4 py-2 bg-accent text-background font-bold text-xs uppercase">
                       {getProjectCategoryLabel(project.category)}

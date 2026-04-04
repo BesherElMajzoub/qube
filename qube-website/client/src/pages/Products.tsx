@@ -49,7 +49,7 @@ export default function Products() {
                   : 'border-foreground text-foreground'
               }`}
             >
-              All Products ({allProducts?.length || 0})
+              {t('products.allLabel')} ({allProducts?.length || 0})
             </Button>
             {categories.map((cat) => (
               <Button
@@ -106,7 +106,7 @@ export default function Products() {
                         {getCategoryLabel(product.category)}
                       </span>
                       <span className="text-sm font-bold text-foreground group-hover:text-accent transition-colors">
-                        {language === 'ar' ? 'عرض التفاصيل ←' : 'View Details →'}
+                        {t('products.viewDetails')}
                       </span>
                     </div>
                   </div>
@@ -115,7 +115,7 @@ export default function Products() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-lg text-muted-foreground">No products found in this category.</p>
+              <p className="text-lg text-muted-foreground">{t('products.noProducts')}</p>
             </div>
           )}
         </div>

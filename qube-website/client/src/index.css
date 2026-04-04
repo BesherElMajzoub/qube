@@ -347,4 +347,37 @@
   .delay-800 {
     animation-delay: 0.8s;
   }
+
+  /* ============================
+     FAQ Accordion
+     ============================ */
+
+  .faq-accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-accordion-body--open {
+    max-height: 500px;
+  }
+
+  /* ============================
+     Nav Dropdown
+     ============================ */
+
+  @keyframes dropdownIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .nav-dropdown-enter {
+    animation: dropdownIn 0.2s ease-out both;
+  }
 }

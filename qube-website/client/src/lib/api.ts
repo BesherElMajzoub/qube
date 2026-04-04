@@ -62,6 +62,9 @@ export interface ContactFormData {
   phone: string;
   email?: string;
   message: string;
+  projectType?: string;
+  measurements?: string;
+  preferredColor?: string;
 }
 
 export interface Settings {

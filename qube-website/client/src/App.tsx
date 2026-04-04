@@ -16,6 +16,12 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import ProductDetail from "./pages/ProductDetail";
 import ProjectDetail from "./pages/ProjectDetail";
+import Kitchens from "./pages/Kitchens";
+import Bathrooms from "./pages/Bathrooms";
+import Commercial from "./pages/Commercial";
+import WhyHiMacs from "./pages/WhyHiMacs";
+import AfterSales from "./pages/AfterSales";
+import FAQ from "./pages/FAQ";
 import { useEffect } from "react";
 import { useTrackVisitor, useSettings, useTrackClick } from "./lib/useApi";
 import { useLanguage } from "./contexts/LanguageContext";
@@ -66,6 +72,12 @@ function Router() {
           <Route path="/products/:id" component={ProductDetail} />
           <Route path="/projects" component={Projects} />
           <Route path="/projects/:id" component={ProjectDetail} />
+          <Route path="/kitchens" component={Kitchens} />
+          <Route path="/bathrooms" component={Bathrooms} />
+          <Route path="/commercial" component={Commercial} />
+          <Route path="/why-himacs" component={WhyHiMacs} />
+          <Route path="/after-sales" component={AfterSales} />
+          <Route path="/faq" component={FAQ} />
           <Route path="/contact" component={Contact} />
           <Route path="/privacy" component={Privacy} />
           <Route path="/terms" component={Terms} />

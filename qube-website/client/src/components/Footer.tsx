@@ -41,8 +41,14 @@ export default function Footer() {
             <nav className="flex flex-col gap-2">
               <Link href="/" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.home')}</Link>
               <Link href="/about" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.about')}</Link>
+              <Link href="/kitchens" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.kitchens')}</Link>
+              <Link href="/bathrooms" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.bathrooms')}</Link>
+              <Link href="/commercial" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.commercial')}</Link>
               <Link href="/products" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.products')}</Link>
               <Link href="/projects" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.projects')}</Link>
+              <Link href="/why-himacs" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.hiMacs')}</Link>
+              <Link href="/after-sales" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.afterSales')}</Link>
+              <Link href="/faq" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.faq')}</Link>
               <Link href="/contact" className="text-sm opacity-80 hover:opacity-100 transition-opacity">{t('nav.contact')}</Link>
             </nav>
           </div>

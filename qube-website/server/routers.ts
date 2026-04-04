@@ -79,6 +79,9 @@ export const appRouter = router({
         phone: z.string().min(7, "Phone must be at least 7 characters"),
         email: z.string().email().optional(),
         message: z.string().min(10, "Message must be at least 10 characters"),
+        projectType: z.string().optional(),
+        measurements: z.string().optional(),
+        preferredColor: z.string().optional(),
       }))
       .mutation(async ({ input }) => {
         try {
@@ -86,7 +89,12 @@ export const appRouter = router({
             name: input.name,
             phone: input.phone,
             email: input.email || null,
-            message: input.message,
+            message: [
+              input.message,
+              input.projectType ? `Project Type: ${input.projectType}` : '',
+              input.measurements ? `Measurements: ${input.measurements}` : '',
+              input.preferredColor ? `Preferred Color: ${input.preferredColor}` : '',
+            ].filter(Boolean).join('\n'),
             status: "new",
             notificationSent: 0,
           });
@@ -94,8 +102,8 @@ export const appRouter = router({
           // Send notification to owner
           try {
             await notifyOwner({
-              title: "New Contact Submission",
-              content: `New message from ${input.name}\n\nPhone: ${input.phone}\nEmail: ${input.email || "Not provided"}\n\nMessage:\n${input.message}`,
+              title: "New Quote Request",
+              content: `New request from ${input.name}\n\nPhone: ${input.phone}\nEmail: ${input.email || "Not provided"}\nProject Type: ${input.projectType || "Not specified"}\nMeasurements: ${input.measurements || "Not specified"}\nPreferred Color: ${input.preferredColor || "Not specified"}\n\nMessage:\n${input.message}`,
             });
           } catch (error) {
             console.error("Failed to send owner notification:", error);

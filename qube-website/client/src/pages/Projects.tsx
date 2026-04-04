@@ -49,7 +49,7 @@ export default function Projects() {
                   : 'border-foreground text-foreground'
               }`}
             >
-              All Projects ({allProjects?.length || 0})
+              {t('projects.allLabel')} ({allProjects?.length || 0})
             </Button>
             {categories.map((cat) => (
               <Button
@@ -99,7 +99,7 @@ export default function Projects() {
                         {getCategoryLabel(project.category)}
                       </span>
                       <div className="text-background text-sm opacity-75">
-                        {language === 'ar' ? 'اضغط لعرض التفاصيل ←' : 'Click to view details →'}
+                        {t('projects.clickDetails')}
                       </div>
                     </div>
                   </div>
@@ -108,7 +108,7 @@ export default function Projects() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-lg text-muted-foreground">No projects found in this category.</p>
+              <p className="text-lg text-muted-foreground">{t('projects.noProjects')}</p>
             </div>
           )}
         </div>
@@ -117,7 +117,7 @@ export default function Projects() {
       {/* Before & After Comparison Section */}
       <section className="section-spacing bg-muted border-t-2 border-foreground">
         <div className="container">
-          <h2 className="heading-lg text-foreground text-center mb-12">Transformation Showcase</h2>
+          <h2 className="heading-lg text-foreground text-center mb-12">{t('projects.transformationShowcase')}</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {displayProjects?.slice(0, 2).map((project) => (
