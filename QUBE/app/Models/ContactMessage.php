@@ -11,6 +11,9 @@ class ContactMessage extends Model
         'phone',
         'email',
         'message',
+        'project_type',
+        'measurements',
+        'preferred_color',
         'status',
     ];
 }

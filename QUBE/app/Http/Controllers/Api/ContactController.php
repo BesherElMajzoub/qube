@@ -14,13 +14,25 @@ class ContactController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|min:2|max:255',
-            'phone' => 'required|string|min:7|max:20',
-            'email' => 'nullable|email|max:320',
-            'message' => 'required|string|min:10',
+            'name'           => 'required|string|min:2|max:255',
+            'phone'          => 'required|string|min:7|max:20',
+            'email'          => 'nullable|email|max:320',
+            'message'        => 'nullable|string',
+            'projectType'    => 'nullable|string|max:100',
+            'measurements'   => 'nullable|string|max:255',
+            'preferredColor' => 'nullable|string|max:100',
         ]);
 
-        ContactMessage::create($validated);
+        ContactMessage::create([
+            'name'            => $validated['name'],
+            'phone'           => $validated['phone'],
+            'email'           => $validated['email'] ?? null,
+            'message'         => $validated['message'] ?? null,
+            'project_type'    => $validated['projectType'] ?? null,
+            'measurements'    => $validated['measurements'] ?? null,
+            'preferred_color' => $validated['preferredColor'] ?? null,
+            'status'          => 'new',
+        ]);
 
         return response()->json([
             'success' => true,

@@ -39,8 +39,29 @@
 
                 <div class="col-12">
                     <label class="form-label">Message</label>
-                    <div class="form-control bg-light" style="pointer-events:none; min-height:120px; white-space:pre-wrap;">{{ $message->message }}</div>
+                    <div class="form-control bg-light" style="pointer-events:none; min-height:80px; white-space:pre-wrap;">{{ $message->message ?? 'No message' }}</div>
                 </div>
+
+                @if($message->project_type)
+                <div class="col-md-6">
+                    <label class="form-label">Project Type</label>
+                    <div class="form-control bg-light" style="pointer-events:none;">{{ $message->project_type }}</div>
+                </div>
+                @endif
+
+                @if($message->measurements)
+                <div class="col-md-6">
+                    <label class="form-label">Measurements</label>
+                    <div class="form-control bg-light" style="pointer-events:none;">{{ $message->measurements }}</div>
+                </div>
+                @endif
+
+                @if($message->preferred_color)
+                <div class="col-md-6">
+                    <label class="form-label">Preferred Color</label>
+                    <div class="form-control bg-light" style="pointer-events:none;">{{ $message->preferred_color }}</div>
+                </div>
+                @endif
 
                 <div class="col-12">
                     <label class="form-label">Received</label>
